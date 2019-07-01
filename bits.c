@@ -32,12 +32,50 @@ int number_of_one_bits(int param, int num_of_bits)
     return result;
 }
 
+/*
+You are given two 32-bit numbers, N and M, and two bit positions, i and j. Write a method
+to insert Minto N such that M starts at bit j and ends at bit i. You can assume that the bits j through
+i have enough space to fit all of M. That is, if M = 10011, you can assume that there are at least 5
+bits between j and i. You would not, for example, have j = 3 and i = 2, because M could not fully
+fit between bit 3 and bit 2.
+EXAMPLE
+Input: N
+Output: N
+SOLUTION
+10000000000, M
+10001001100
+10011, i = 2, j = 6
+*/
+
+int insert_to(int dest, int insert, int i, int j)
+{
+    
+    int allones = ~0;
+    int left = allones << (j+1);
+
+    int right = ((1 << i) - 1);
+
+    int mask = left | right;
+
+    insert = insert << i;
+
+    mask = mask | insert;
+
+    dest = dest & mask;
+    dest = dest | insert;
+
+    return dest;
+}
+
 int main()
 {
     int p0 = 5; // 0101b
     int p1 = 717; //‭001011001101‬b
-    
     printf("%d : %d\n",p0, number_of_one_bits(p0, number_of_all_bits(p0)));
     printf("%d : %d\n",p1, number_of_one_bits(p1, number_of_all_bits(p1)));
+
+
+    printf(" Insert result : %d\n", insert_to(1024, 19, 2, 6));
+
     return 0;
 }
