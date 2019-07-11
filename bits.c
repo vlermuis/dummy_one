@@ -67,6 +67,29 @@ int insert_to(int dest, int insert, int i, int j)
     return dest;
 }
 
+/*
+ reverse bits
+ 10111001 into 10111001
+*/
+int reverse_bits(int c)
+{
+    int result = 1;
+    int mask = 0;
+    int mask2 = 0;
+    int i = 0;
+    for (i = 0; i < 8; i++)
+    {
+        mask = (c & (1 << i)); 
+        mask = 1 << i;
+        if (c & mask)
+        {/*1*/
+            mask2 = (1 << 7 - i);
+            result |= mask2;
+        }
+    }
+    return result;
+}
+
 int main()
 {
     int p0 = 5; // 0101b
@@ -76,6 +99,8 @@ int main()
 
 
     printf(" Insert result : %d\n", insert_to(1024, 19, 2, 6));
+
+    printf("reverse bits from 157 is : %d\n", reverse_bits(157));
 
     return 0;
 }
